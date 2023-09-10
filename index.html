@@ -1,0 +1,318 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warspear Amplyfication System</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+    <div
+        class="flex flex-col w-full max-h-screen h-screen bg-[url('res/background-1.png')] bg-center bg-cover items-center justify-center overflow-auto">
+        <div class="flex flex-col items-center justify-center w-full min-h-screen px-4 py-6 bg-black/50">
+            <div class="flex flex-col items-center overflow-auto">
+                <div class="flex flex-col gap-2 max-w-[400px]">
+
+                    <div
+                        class="grid grid-cols-2 gap-2 bg-gradient-to-b from-[#5a525a] to-[#423942] text-sm md:text-base px-4 py-2 text-white border-2 border-yellow-400">
+                        <div class="flex flex-row items-center gap-2">
+                            <span class="text-yellow-400">Gold :</span>
+                            <span id="usage_gold">0</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <span class="text-yellow-400">Sign :</span>
+                            <span id="usage_sign">0</span>
+                        </div>
+                    </div>
+
+                    <!-- // Banner -->
+                    <div
+                        class="flex flex-col bg-[#735a52] border-2 border-yellow-500 relative shadow-lg text-sm md:text-base">
+                        <div
+                            class="flex flex-row items-center justify-center px-4 py-2 font-semibold text-yellow-500 bg-orange-800 border-b-2 border-b-orange-600">
+                            <span>Item Amplification</span>
+                        </div>
+                        <div class="flex flex-col bg-[#735a52 text-white p-4 gap-4">
+                            <div class="flex flex-row items-center gap-4 font-semibold text-pink-300">
+                                <button onclick="showItems()" id="item"
+                                    class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
+                                    <img id="amply_icon" src="res/1-handed-weapon.png" alt=""
+                                        class="object-cover object-center">
+                                </button>
+                                <span id="amply_name">
+                                    Blade of Kingdom of Fortitude
+                                </span>
+                            </div>
+                            <div class="grid items-center grid-cols-2 gap-4 font-semibold text-yellow-400">
+                                <div class="flex flex-col gap-2">
+                                    <span>Required</span>
+                                    <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
+                                        <img src="res/sphere-damage.png" alt="" class="items-center object-center">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <span>Level</span>
+                                    <div id="amply_point" class="grid grid-cols-5 gap-2">
+                                        <span class="w-5 h-5 rounded-full bg-slate-400/80"></span>
+                                        <span class="w-5 h-5 rounded-full bg-slate-400/80"></span>
+                                        <span class="w-5 h-5 rounded-full bg-slate-400/80"></span>
+                                        <span class="w-5 h-5 rounded-full bg-slate-400/80"></span>
+                                        <span class="w-5 h-5 rounded-full bg-slate-400/80"></span>
+                                        <span class="w-5 h-5 rounded-full bg-slate-400/80"></span>
+                                        <span class="w-5 h-5 rounded-full bg-slate-400/80"></span>
+                                        <span class="w-5 h-5 rounded-full bg-slate-400/80"></span>
+                                        <span class="w-5 h-5 rounded-full bg-slate-400/80"></span>
+                                        <span class="w-5 h-5 rounded-full bg-slate-400/80"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-semibold text-yellow-400">Item spoiling insurance:</span>
+                                <div class="flex flex-col gap-2">
+                                    <span class="text-slate-400">No (High chance to spoil)</span>
+                                    <span class="text-slate-400">For 59 Miracle Coins</span>
+                                    <span>Sign of Imperishability</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 bg-[#4b3f34] px-2 py-2">
+                            <input id="amply_gold" type="text"
+                                class="text-white border-4 border-yellow-600 rounded-md bg-[#313129] text-center items-center"
+                                value="1000000">
+                            <input id="amply_biaya" type="text"
+                                class="text-white border-4 border-yellow-600 rounded-md bg-[#313129] text-center items-center"
+                                value="100">
+                        </div>
+                        <div class="hidden bg-yellow-500">
+                        </div>
+                        <div id="container_progressbar"
+                            class="absolute top-0 bottom-0 flex flex-col hidden w-full h-10 p-1 my-auto bg-yellow-500 shadow-lg">
+                            <div class="flex flex-col w-full h-full bg-[#735a52] rounded-full overflow-hidden">
+                                <div id="progressbar" class="w-full h-full transition duration-300 bg-blue-500"
+                                    style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- list Items -->
+                        <div id="list_item"
+                            class="absolute top-0 bottom-0 left-0 right-0 bg-[#0f2740]/80 flex flex-col overflow-auto text-white hidden">
+                            <button onclick="showItems()"
+                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
+                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
+                                    <img src="res/1-handed-weapon.png" alt="" class="object-cover object-center">
+                                </div>
+                                <span>Blade of Kingdom of Fortitude</span>
+                            </button>
+                            <div
+                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
+                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
+                                    <img src="res/2-handed-weapon.png" alt="" class="object-cover object-center">
+                                </div>
+                                <span>Blade of Kingdom of Fortitude</span>
+                            </div>
+                            <div
+                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
+                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
+                                    <img src="res/ranged-weapon-bow.png" alt="" class="object-cover object-center">
+                                </div>
+                                <span>Blade of Kingdom of Fortitude</span>
+                            </div>
+                            <div
+                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
+                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
+                                    <img src="res/ranged-weapon-crossbow.png" alt="" class="object-cover object-center">
+                                </div>
+                                <span>Blade of Kingdom of Fortitude</span>
+                            </div>
+                            <div
+                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
+                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
+                                    <img src="res/ranged-weapon-staff.png" alt="" class="object-cover object-center">
+                                </div>
+                                <span>Blade of Kingdom of Fortitude</span>
+                            </div>
+                            <div
+                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
+                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
+                                    <img src="res/shield.png" alt="" class="object-cover object-center">
+                                </div>
+                                <span>Blade of Kingdom of Fortitude</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 text-sm shadow-lg md:text-base">
+                        <button
+                            class="px-4 py-2 font-semibold border-4 border-yellow-200 bg-gradient-to-b from-[#737bb5] to-[#5a5273] text-yellow-300 hover:bg-gradient-to-t hover:from-[#5a5273] hover:to-[#5a5273]">RESET</button>
+                        <button onclick="amply()"
+                            class="px-4 py-2 font-semibold border-4 border-yellow-200 bg-gradient-to-b from-[#737bb5] to-[#5a5273] text-yellow-300 hover:bg-gradient-to-t hover:from-[#5a5273] hover:to-[#5a5273]">AMPLIFY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- CHAT STATUS -->
+        <div
+            class="flex max-h-screen h-screen flex-col w-full border-2 border-yellow-300 bg-[#193652]/90 overflow-auto hidden">
+            <div
+                class="flex flex-col items-center justify-center px-4 py-2 text-yellow-400 font-semibold text-lg bg-[#9a3412]">
+                <span>Amply Status</span>
+            </div>
+            <div id="text_container" class="flex flex-col flex-1 gap-2 px-4 py-2 overflow-auto text-white">
+
+            </div>
+            <div
+                class="flex flex-row items-center gap-4 text-lg font-semibold text-yellow-400 border-t-2 border-b-2 border-yellow-400">
+                <div class="grid w-full grid-cols-2">
+                    <div class="flex flex-row items-center gap-2">
+                        <span class="px-4 py-2 text-black bg-yellow-500">Gold Terpakai : </span>
+                        <span id="amply_gold_used" class="text-white">0</span>
+                    </div>
+                    <div class="flex flex-row items-center gap-2">
+                        <span class="px-4 py-2 text-black bg-yellow-500">Sign Terpakai : </span>
+                        <span id="amply_sign_used" class="text-white">0</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center p-4 text-sm text-white">
+        <span class="font-semibold text-center">Warespear Amplification Simulation</span>
+        <span class="text-center">Created by Wahyu Hidayat <a
+                href="https://github.com/wahyuhidayattz">https://github.com/wahyuhidayattz</a>
+        </span>
+    </div>
+    <script src="items.js"></script>
+    <script>
+        let item_name = "Blade of Kingdom of Fortitude";
+        let amply_name = document.getElementById('amply_name');
+        let amply_icon = document.getElementById('amply_icon');
+        let amply_gold = document.getElementById('amply_gold');
+        let amply_biaya = document.getElementById('amply_biaya');
+        let amply_gold_used = document.getElementById('amply_gold_used');
+        let amply_sign_used = document.getElementById('amply_sign_used');
+        let text_container = document.getElementById('text_container');
+        let usage_sign = document.getElementById('usage_sign');
+        let usage_gold = document.getElementById('usage_gold');
+        let item = document.getElementById('item');
+        let list_item = document.getElementById('list_item');
+
+        let gold_awal = 1000000;
+        let biaya = 100;
+
+        let amply_point = document.getElementById('amply_point');
+        let amply_awal = 0;
+        let amply_random = 1;
+        let amply_frac = 1.5;
+        let text = "";
+        let jumlah = 0;
+        let total_biaya = 0;
+
+        let amplyChance = (item_type) => {
+            switch (item_type) {
+                case 'one-handed-weapon':
+                    amply_frac = 1.5;
+                    break;
+                case 'two-handed-weapon':
+                    amply_frac = 1.6;
+                    break;
+                case 'ranged-weapon':
+                    amply_frac = 1.7;
+                    break;
+                case 'shield':
+                    amply_frac = 1.4;
+                    break;
+                default:
+                    amply_frac = 1.5;
+                    break;
+            }
+
+            console.log(amply_frac);
+        }
+
+        let showItems = () => {
+            list_item.classList.toggle('hidden');
+        }
+
+
+        let setItem = (name, icon, type) => {
+            showItems();
+            item_name = name;
+            amply_name.textContent = name;
+            amply_icon.src = icon;
+
+            amplyChance(type);
+        }
+
+        let render_item = '';
+        for (const item of items) {
+            let name = item.name;
+            let icon = item.icon;
+            let type = item.type;
+            render_item += `<button onclick="setItem('${name}','${icon}','${type}')"
+                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
+                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
+                                    <img src="${icon}" alt="" class="object-cover object-center">
+                                </div>
+                                <span>${name}</span>
+                            </button>`;
+        }
+
+        list_item.innerHTML = render_item;
+
+
+        let amply = () => {
+            if (amply_awal < 10) {
+                let random = Math.floor(Math.random() * amply_random) + 1;
+                let text = "Amply Gagal";
+                total_biaya += biaya;
+                gold_awal = gold_awal - biaya;
+
+                if (random == 1) {
+                    amply_random = amply_random * amply_frac;
+
+                    amply_point.children[amply_awal] = amply_point.children[amply_awal].classList.add('!bg-yellow-500');
+
+                    if (amply_awal < 9) {
+                        amply_point.children[amply_awal + 1] = amply_point.children[amply_awal + 1].classList.remove('bg-slate-400/80');
+                        amply_point.children[amply_awal + 1] = amply_point.children[amply_awal + 1].classList.add('bg-sky-500');
+                    }
+
+                    amply_awal++;
+                    text = "Amply Berhasil";
+
+                    biaya = biaya + Math.floor((biaya * 0.3));
+
+                    amply_name.textContent = "+" + amply_awal + " " + item_name;
+                }
+
+                jumlah++;
+                console.log("Amply Ke-" + jumlah + " " + text + " : +" + amply_awal);
+                console.log("Glod : " + gold_awal + ", Biaya : " + biaya + " , Total Biaya : " + total_biaya);
+
+                text_container.innerHTML += `<span>Sign ke-${jumlah}, ${text} menjadi +${amply_awal}</span>`;
+
+                amply_gold.value = gold_awal;
+                amply_biaya.value = biaya;
+
+                amply_gold_used.textContent = total_biaya;
+                amply_sign_used.textContent = jumlah;
+
+                usage_gold.textContent = total_biaya;
+                usage_sign.textContent = jumlah;
+            } else {
+                console.log("Amply Selesai, sudah Full Power");
+            }
+        }
+
+    </script>
+</body>
+
+</html>
