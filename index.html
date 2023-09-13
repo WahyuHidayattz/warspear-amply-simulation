@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warspear Amplyfication System</title>
+    <title>WS Amply Simulator</title>
     <link rel="stylesheet" href="app.css">
 </head>
 
@@ -19,11 +19,11 @@
                         class="grid grid-cols-2 gap-2 bg-gradient-to-b from-[#5a525a] to-[#423942] text-sm md:text-base px-4 py-2 text-white border-2 border-yellow-400">
                         <div class="flex flex-row items-center gap-2">
                             <span class="text-yellow-400">Gold :</span>
-                            <span id="usage_gold">0</span>
+                            <span id="ui_gold_usage">0</span>
                         </div>
                         <div class="flex flex-row items-center gap-2">
                             <span class="text-yellow-400">Sign :</span>
-                            <span id="usage_sign">0</span>
+                            <span id="ui_sign_usage">0</span>
                         </div>
                     </div>
 
@@ -41,9 +41,7 @@
                                     <img id="amply_icon" src="res/1-handed-weapon.png" alt=""
                                         class="object-cover object-center">
                                 </button>
-                                <span id="amply_name">
-                                    Blade of Kingdom of Fortitude
-                                </span>
+                                <span id="ui_item_name">Blade of Kingdom of Fortitude</span>
                             </div>
                             <div class="grid items-center grid-cols-2 gap-4 font-semibold text-yellow-400">
                                 <div class="flex flex-col gap-2">
@@ -78,10 +76,10 @@
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2 bg-[#4b3f34] px-2 py-2">
-                            <input id="amply_gold" type="text"
+                            <input id="ui_amply_gold_amount" type="text"
                                 class="text-white border-4 border-yellow-600 rounded-md bg-[#313129] text-center items-center"
                                 value="1000000">
-                            <input id="amply_biaya" type="text"
+                            <input id="ui_amply_gold_cost" type="text"
                                 class="text-white border-4 border-yellow-600 rounded-md bg-[#313129] text-center items-center"
                                 value="100">
                         </div>
@@ -145,7 +143,7 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-2 text-sm shadow-lg md:text-base">
-                        <button
+                        <button onclick="reset()"
                             class="px-4 py-2 font-semibold border-4 border-yellow-200 bg-gradient-to-b from-[#737bb5] to-[#5a5273] text-yellow-300 hover:bg-gradient-to-t hover:from-[#5a5273] hover:to-[#5a5273]">RESET</button>
                         <button onclick="amply()"
                             class="px-4 py-2 font-semibold border-4 border-yellow-200 bg-gradient-to-b from-[#737bb5] to-[#5a5273] text-yellow-300 hover:bg-gradient-to-t hover:from-[#5a5273] hover:to-[#5a5273]">AMPLIFY</button>
@@ -159,79 +157,90 @@
                 </span>
             </div>
         </div>
-        <!-- CHAT STATUS -->
-        <div
-            class="flex max-h-screen h-screen flex-col w-full border-2 border-yellow-300 bg-[#193652]/90 overflow-auto hidden">
-            <div
-                class="flex flex-col items-center justify-center px-4 py-2 text-yellow-400 font-semibold text-lg bg-[#9a3412]">
-                <span>Amply Status</span>
-            </div>
-            <div id="text_container" class="flex flex-col flex-1 gap-2 px-4 py-2 overflow-auto text-white">
-
-            </div>
-            <div
-                class="flex flex-row items-center gap-4 text-lg font-semibold text-yellow-400 border-t-2 border-b-2 border-yellow-400">
-                <div class="grid w-full grid-cols-2">
-                    <div class="flex flex-row items-center gap-2">
-                        <span class="px-4 py-2 text-black bg-yellow-500">Gold Terpakai : </span>
-                        <span id="amply_gold_used" class="text-white">0</span>
-                    </div>
-                    <div class="flex flex-row items-center gap-2">
-                        <span class="px-4 py-2 text-black bg-yellow-500">Sign Terpakai : </span>
-                        <span id="amply_sign_used" class="text-white">0</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    </div>
 
     </div>
     <script src="items.js"></script>
     <script>
-        let item_name = "Blade of Kingdom of Fortitude";
-        let amply_name = document.getElementById('amply_name');
+        let ui_item_name = document.getElementById('ui_item_name');
         let amply_icon = document.getElementById('amply_icon');
-        let amply_gold = document.getElementById('amply_gold');
-        let amply_biaya = document.getElementById('amply_biaya');
-        let amply_gold_used = document.getElementById('amply_gold_used');
-        let amply_sign_used = document.getElementById('amply_sign_used');
-        let text_container = document.getElementById('text_container');
-        let usage_sign = document.getElementById('usage_sign');
-        let usage_gold = document.getElementById('usage_gold');
+        let ui_amply_gold_amount = document.getElementById('ui_amply_gold_amount');
+        let ui_amply_gold_cost = document.getElementById('ui_amply_gold_cost');
+
+        let ui_sign_usage = document.getElementById('ui_sign_usage');
+        let ui_gold_usage = document.getElementById('ui_gold_usage');
         let item = document.getElementById('item');
         let list_item = document.getElementById('list_item');
 
-        let gold_awal = 1000000;
-        let biaya = 100;
+        // BASIC VARIABLE
+        let item_name = ui_item_name.textContent;
+        let base_gold_amount = 1000000;
+        let base_gold_cost = 100;
+        let base_amply_plus = 0;
 
+        // AMPLY VARIABLE
         let amply_point = document.getElementById('amply_point');
         let amply_awal = 0;
         let amply_random = 1;
         let amply_frac = 1.5;
         let text = "";
         let jumlah = 0;
-        let total_biaya = 0;
+        let total_base_gold_cost = 0;
 
-        let amplyChance = (item_type) => {
+        let reset = (name = item_name, cost = base_gold_cost, frac = amply_frac) => {
+            ui_gold_usage.textContent = 0;
+            ui_sign_usage.textContent = 0;
+            ui_amply_gold_amount.value = 1000000;
+            ui_amply_gold_cost.value = cost;
+            ui_item_name.textContent = name;
+
+            base_gold_amount = 1000000;
+            base_gold_cost = cost;
+            base_amply_plus = 0;
+
+            amply_awal = 0;
+            amply_random = 1;
+            amply_frac = frac;
+            jumlah = 0;
+            total_base_gold_cost = 0;
+
+            let index = 0;
+            for (const i of amply_point.children) {
+                amply_point.children[index].classList.remove('!bg-yellow-500');
+                amply_point.children[index].classList.remove('bg-sky-500');
+                amply_point.children[index].classList.add('bg-slate-400/80');
+                index++;
+            }
+            console.log('COST : ' + cost + "\n" +
+                "FRAC : " + frac + "\n" +
+                "NAME : " + name);
+        }
+
+        let setAmplyVariable = (item_name, item_type) => {
             switch (item_type) {
                 case 'one-handed-weapon':
                     amply_frac = 1.5;
+                    base_gold_cost = 100;
                     break;
                 case 'two-handed-weapon':
                     amply_frac = 1.6;
+                    base_gold_cost = 120;
                     break;
                 case 'ranged-weapon':
                     amply_frac = 1.7;
+                    base_gold_cost = 150;
                     break;
                 case 'shield':
                     amply_frac = 1.4;
+                    base_gold_cost = 80;
                     break;
                 default:
                     amply_frac = 1.5;
+                    base_gold_cost = 100;
                     break;
             }
-
-            console.log(amply_frac);
+            reset(item_name, base_gold_cost, amply_frac);
+            ui_amply_gold_cost.value = base_gold_cost;
         }
 
         let showItems = () => {
@@ -242,10 +251,9 @@
         let setItem = (name, icon, type) => {
             showItems();
             item_name = name;
-            amply_name.textContent = name;
+            ui_item_name.textContent = name;
             amply_icon.src = icon;
-
-            amplyChance(type);
+            setAmplyVariable(item_name, type);
         }
 
         let render_item = '';
@@ -269,8 +277,8 @@
             if (amply_awal < 10) {
                 let random = Math.floor(Math.random() * amply_random) + 1;
                 let text = "Amply Gagal";
-                total_biaya += biaya;
-                gold_awal = gold_awal - biaya;
+                total_base_gold_cost += base_gold_cost;
+                base_gold_amount = base_gold_amount - base_gold_cost;
 
                 if (random == 1) {
                     amply_random = amply_random * amply_frac;
@@ -285,25 +293,20 @@
                     amply_awal++;
                     text = "Amply Berhasil";
 
-                    biaya = biaya + Math.floor((biaya * 0.3));
+                    base_gold_cost = base_gold_cost + Math.floor((base_gold_cost * 0.20));
 
-                    amply_name.textContent = "+" + amply_awal + " " + item_name;
+                    ui_item_name.textContent = "+" + amply_awal + " " + item_name;
                 }
 
                 jumlah++;
                 console.log("Amply Ke-" + jumlah + " " + text + " : +" + amply_awal);
-                console.log("Glod : " + gold_awal + ", Biaya : " + biaya + " , Total Biaya : " + total_biaya);
+                console.log("Glod : " + base_gold_amount + ", base_gold_cost : " + base_gold_cost + " , Total base_gold_cost : " + total_base_gold_cost);
 
-                text_container.innerHTML += `<span>Sign ke-${jumlah}, ${text} menjadi +${amply_awal}</span>`;
+                ui_amply_gold_amount.value = base_gold_amount;
+                ui_amply_gold_cost.value = base_gold_cost;
 
-                amply_gold.value = gold_awal;
-                amply_biaya.value = biaya;
-
-                amply_gold_used.textContent = total_biaya;
-                amply_sign_used.textContent = jumlah;
-
-                usage_gold.textContent = total_biaya;
-                usage_sign.textContent = jumlah;
+                ui_gold_usage.textContent = total_base_gold_cost;
+                ui_sign_usage.textContent = jumlah;
             } else {
                 console.log("Amply Selesai, sudah Full Power");
             }

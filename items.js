@@ -27,6 +27,6 @@ let items = [
     {
         'name': 'Shiled of Kingdom of Fortitude',
         'icon': 'res/shield.png',
-        'type': 'one-handed-weapon'
+        'type': 'shield'
     },
 ]

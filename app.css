@@ -701,11 +701,6 @@ video {
   border-color: rgb(254 240 138 / var(--tw-border-opacity));
 }
 
-.border-yellow-300 {
-  --tw-border-opacity: 1;
-  border-color: rgb(253 224 71 / var(--tw-border-opacity));
-}
-
 .border-yellow-400 {
   --tw-border-opacity: 1;
   border-color: rgb(250 204 21 / var(--tw-border-opacity));
@@ -719,6 +714,11 @@ video {
 .border-yellow-600 {
   --tw-border-opacity: 1;
   border-color: rgb(202 138 4 / var(--tw-border-opacity));
+}
+
+.border-yellow-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(253 224 71 / var(--tw-border-opacity));
 }
 
 .border-b-orange-600 {
@@ -739,10 +739,6 @@ video {
   background-color: rgb(15 39 64 / 0.8);
 }
 
-.bg-\[\#193652\]\/90 {
-  background-color: rgb(25 54 82 / 0.9);
-}
-
 .bg-\[\#313129\] {
   --tw-bg-opacity: 1;
   background-color: rgb(49 49 41 / var(--tw-bg-opacity));
@@ -756,11 +752,6 @@ video {
 .bg-\[\#735a52\] {
   --tw-bg-opacity: 1;
   background-color: rgb(115 90 82 / var(--tw-bg-opacity));
-}
-
-.bg-\[\#9a3412\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(154 52 18 / var(--tw-bg-opacity));
 }
 
 .bg-black\/50 {
@@ -794,6 +785,15 @@ video {
 .bg-yellow-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#193652\]\/90 {
+  background-color: rgb(25 54 82 / 0.9);
+}
+
+.bg-\[\#9a3412\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(154 52 18 / var(--tw-bg-opacity));
 }
 
 .bg-\[url\(\'res\/background-1\.png\'\)\] {
@@ -889,23 +889,18 @@ video {
   text-align: center;
 }
 
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.font-semibold {
-  font-weight: 600;
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+.font-semibold {
+  font-weight: 600;
 }
 
 .text-pink-300 {
@@ -936,6 +931,11 @@ video {
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .shadow-lg {
