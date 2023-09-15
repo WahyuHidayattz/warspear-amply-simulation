@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#toast.fade-enter-active,
+#toast.fade-leave-active {
+  transition: opacity 0.3s;
+}
+#toast.fade-enter, #toast.fade-leave-to /* .fade-leave-active dalam versi sebelumnya */ {
+  opacity: 0;
+}

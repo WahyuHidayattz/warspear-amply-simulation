@@ -47,7 +47,8 @@
                                 <div class="flex flex-col gap-2">
                                     <span>Required</span>
                                     <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
-                                        <img src="res/sphere-damage.png" alt="" class="items-center object-center">
+                                        <img id="ui_amply_sphere" src="res/sphere-damage.png" alt=""
+                                            class="items-center object-center">
                                     </div>
                                 </div>
                                 <div class="flex flex-col gap-2">
@@ -96,48 +97,17 @@
                         <!-- list Items -->
                         <div id="list_item"
                             class="absolute top-0 bottom-0 left-0 right-0 bg-[#0f2740]/80 flex flex-col overflow-auto text-white hidden">
+
+                            <!-- LIST OF WEAPONS -->
                             <button onclick="showItems()"
                                 class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
                                 <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
                                     <img src="res/1-handed-weapon.png" alt="" class="object-cover object-center">
                                 </div>
-                                <span>Blade of Kingdom of Fortitude</span>
+                                <span>Blade of Kingdom of
+                                    Fortitude</span>
                             </button>
-                            <div
-                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
-                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
-                                    <img src="res/2-handed-weapon.png" alt="" class="object-cover object-center">
-                                </div>
-                                <span>Blade of Kingdom of Fortitude</span>
-                            </div>
-                            <div
-                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
-                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
-                                    <img src="res/ranged-weapon-bow.png" alt="" class="object-cover object-center">
-                                </div>
-                                <span>Blade of Kingdom of Fortitude</span>
-                            </div>
-                            <div
-                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
-                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
-                                    <img src="res/ranged-weapon-crossbow.png" alt="" class="object-cover object-center">
-                                </div>
-                                <span>Blade of Kingdom of Fortitude</span>
-                            </div>
-                            <div
-                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
-                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
-                                    <img src="res/ranged-weapon-staff.png" alt="" class="object-cover object-center">
-                                </div>
-                                <span>Blade of Kingdom of Fortitude</span>
-                            </div>
-                            <div
-                                class="flex flex-row items-center gap-4 px-6 py-4 border-b border-b-yellow-500/40 hover:bg-blue-600/20">
-                                <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
-                                    <img src="res/shield.png" alt="" class="object-cover object-center">
-                                </div>
-                                <span>Blade of Kingdom of Fortitude</span>
-                            </div>
+
 
                         </div>
                     </div>
@@ -159,6 +129,15 @@
         </div>
     </div>
 
+    <div class="absolute top-0 left-0 right-0 flex flex-col items-center mt-10">
+
+        <div id="toast"
+            class="flex flex-col max-w-md px-4 py-1 text-sm text-white transition duration-300 rounded-md opacity-0 bg-black/50">
+            <span>Amply Sucessfully</span>
+        </div>
+
+    </div>
+
     </div>
     <script src="items.js"></script>
     <script>
@@ -166,11 +145,14 @@
         let amply_icon = document.getElementById('amply_icon');
         let ui_amply_gold_amount = document.getElementById('ui_amply_gold_amount');
         let ui_amply_gold_cost = document.getElementById('ui_amply_gold_cost');
+        let ui_amply_sphere = document.getElementById('ui_amply_sphere');
 
         let ui_sign_usage = document.getElementById('ui_sign_usage');
         let ui_gold_usage = document.getElementById('ui_gold_usage');
         let item = document.getElementById('item');
         let list_item = document.getElementById('list_item');
+
+        let toast = document.getElementById('toast');
 
         // BASIC VARIABLE
         let item_name = ui_item_name.textContent;
@@ -186,6 +168,15 @@
         let text = "";
         let jumlah = 0;
         let total_base_gold_cost = 0;
+
+        // SET DATA
+        let panjang_data = items.length;
+        let default_data_number = Math.floor(Math.random() * panjang_data);
+        let default_item_name = items[default_data_number].name;
+        let default_item_icon = items[default_data_number].icon;
+        let default_item_type = items[default_data_number].type;
+
+        console.log("Name : " + default_item_name + "\nIcon : " + default_item_icon + "\nType : " + default_item_type);
 
         let reset = (name = item_name, cost = 100, frac = amply_frac) => {
             ui_gold_usage.textContent = 0;
@@ -216,8 +207,13 @@
             //     "NAME : " + name);
         }
 
-        let setAmplyVariable = (item_name, item_type) => {
-            switch (item_type) {
+        let setAmplyVariable = (name, icon, type) => {
+            item_name = name;
+            ui_item_name.textContent = name;
+            amply_icon.src = icon;
+            ui_amply_sphere.src = 'res/sphere-damage.png';
+
+            switch (type) {
                 case 'one-handed-weapon':
                     amply_frac = 1.5;
                     base_gold_cost = 100;
@@ -231,6 +227,7 @@
                     base_gold_cost = 100;
                     break;
                 case 'shield':
+                    ui_amply_sphere.src = 'res/sphere-defence.png';
                     amply_frac = 1.4;
                     base_gold_cost = 100;
                     break;
@@ -239,20 +236,16 @@
                     base_gold_cost = 100;
                     break;
             }
-            reset(item_name, base_gold_cost, amply_frac);
+            reset(name, base_gold_cost, amply_frac);
         }
 
         let showItems = () => {
             list_item.classList.toggle('hidden');
         }
 
-
         let setItem = (name, icon, type) => {
             showItems();
-            item_name = name;
-            ui_item_name.textContent = name;
-            amply_icon.src = icon;
-            setAmplyVariable(item_name, type);
+            setAmplyVariable(name, icon, type);
         }
 
         let render_item = '';
@@ -265,12 +258,21 @@
                                 <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
                                     <img src="${icon}" alt="" class="object-cover object-center">
                                 </div>
-                                <span>${name}</span>
+                                <span class="w-full text-left">${name}</span>
                             </button>`;
         }
 
         list_item.innerHTML = render_item;
 
+        let showToast = (message) => {
+            toast.textContent = message;
+            setTimeout(() => {
+                toast.classList.toggle('opacity-0');
+                setTimeout(() => {
+                    toast.classList.toggle('opacity-0');
+                }, 1000);
+            }, 100);
+        }
 
         let amply = () => {
             if (amply_awal < 10) {
@@ -306,10 +308,14 @@
 
                 ui_gold_usage.textContent = total_base_gold_cost;
                 ui_sign_usage.textContent = jumlah;
+                showToast(text);
             } else {
                 console.log("Amply Selesai, sudah Full Power");
+                showToast("Amply Selesai, item sudah +10");
             }
         }
+
+        setAmplyVariable(default_item_name, default_item_icon, default_item_type);
 
     </script>
 </body>
