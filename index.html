@@ -113,11 +113,14 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-2 text-sm shadow-lg md:text-base">
-                        <button onclick="reset()"
+                        <button id="ui_button_reset" onclick="reset()"
                             class="px-4 py-2 font-semibold border-4 border-yellow-200 bg-gradient-to-b from-[#737bb5] to-[#5a5273] text-yellow-300 hover:bg-gradient-to-t hover:from-[#5a5273] hover:to-[#5a5273]">RESET</button>
-                        <button onclick="amply()"
+                        <button id="ui_button_amply" onclick="amply()"
                             class="px-4 py-2 font-semibold border-4 border-yellow-200 bg-gradient-to-b from-[#737bb5] to-[#5a5273] text-yellow-300 hover:bg-gradient-to-t hover:from-[#5a5273] hover:to-[#5a5273]">AMPLIFY</button>
+                        <button id="ui_button_close" onclick="showItems()"
+                            class="px-4 py-2 font-semibold border-4 border-yellow-200 bg-gradient-to-b from-[#737bb5] to-[#5a5273] text-yellow-300 hover:bg-gradient-to-t hover:from-[#5a5273] hover:to-[#5a5273] col-span-2 hidden">CLOSE</button>
                     </div>
+
                 </div>
             </div>
             <div class="flex flex-col items-center justify-center px-4 py-1 text-sm text-white">
@@ -146,6 +149,9 @@
         let ui_amply_gold_amount = document.getElementById('ui_amply_gold_amount');
         let ui_amply_gold_cost = document.getElementById('ui_amply_gold_cost');
         let ui_amply_sphere = document.getElementById('ui_amply_sphere');
+        let ui_buttonn_reset = document.getElementById('ui_button_reset');
+        let ui_buttonn_amply = document.getElementById('ui_button_amply');
+        let ui_buttonn_close = document.getElementById('ui_button_close');
 
         let ui_sign_usage = document.getElementById('ui_sign_usage');
         let ui_gold_usage = document.getElementById('ui_gold_usage');
@@ -241,6 +247,9 @@
 
         let showItems = () => {
             list_item.classList.toggle('hidden');
+            ui_buttonn_amply.classList.toggle('hidden');
+            ui_buttonn_reset.classList.toggle('hidden');
+            ui_buttonn_close.classList.toggle('hidden');
         }
 
         let setItem = (name, icon, type) => {
@@ -258,7 +267,7 @@
                                 <div class="w-12 h-12 rounded-md border-4 bg-stone-800 border-[#b59c63]">
                                     <img src="${icon}" alt="" class="object-cover object-center">
                                 </div>
-                                <span class="w-full text-left">${name}</span>
+                                <span class="flex-1 text-left">${name}</span>
                             </button>`;
         }
 
